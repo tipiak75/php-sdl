@@ -418,8 +418,10 @@ static zend_function_entry sdl_functions[] = {
 	// Joystick
 	ZEND_FE(SDL_NumJoysticks, arginfo_SDL_NumJoysticks)
 	ZEND_FE(SDL_JoystickOpen, arginfo_SDL_JoystickOpen)
+	ZEND_FE(SDL_JoystickClose, arginfo_SDL_JoystickClose)
 	ZEND_FE(SDL_JoystickNumButtons, arginfo_SDL_JoystickNumButtons)
 	ZEND_FE(SDL_JoystickName, arginfo_SDL_JoystickName)
+	ZEND_FE(SDL_JoystickGetAxis, arginfo_SDL_JoystickGetAxis)
 	ZEND_FE(SDL_JoystickNameForIndex, arginfo_SDL_JoystickNameForIndex)
 	ZEND_FE(SDL_IsGameController, arginfo_SDL_IsGameController)
 

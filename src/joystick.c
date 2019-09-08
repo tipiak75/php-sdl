@@ -49,11 +49,6 @@ static zend_object *php_sdl_joystick_create_object(zend_class_entry *ce)
 static void php_sdl_joystick_free_object(zend_object *zo)
 {
     php_sdl_joystick_t *php_joystick = (php_sdl_joystick_t *)((char *)zo - zo->handlers->offset);
-    if (php_joystick->intern)
-    {
-        SDL_JoystickClose(php_joystick->intern);
-    }
-
     zend_object_std_dtor(&php_joystick->zo);
 }
 
@@ -114,6 +109,20 @@ PHP_FUNCTION(SDL_JoystickOpen)
     RETURN_NULL();
 }
 
+PHP_FUNCTION(SDL_JoystickClose)
+{
+    zval *zjoystick;
+    SDL_Joystick *joystick;
+
+    ZEND_PARSE_PARAMETERS_START(1, 1)
+    Z_PARAM_OBJECT_OF_CLASS(zjoystick, php_sdl_joystick_ce)
+    ZEND_PARSE_PARAMETERS_END();
+
+    joystick = sdl_joystick_from_zval(zjoystick);
+
+    SDL_JoystickClose(joystick);
+}
+
 PHP_FUNCTION(SDL_JoystickName)
 {
     zval *zjoystick;
@@ -126,6 +135,22 @@ PHP_FUNCTION(SDL_JoystickName)
     joystick = sdl_joystick_from_zval(zjoystick);
 
     RETURN_STRING(SDL_JoystickName(joystick));
+}
+
+PHP_FUNCTION(SDL_JoystickGetAxis)
+{
+    zval *zjoystick;
+    zend_long axis;
+    SDL_Joystick *joystick;
+
+    ZEND_PARSE_PARAMETERS_START(2, 2)
+    Z_PARAM_OBJECT_OF_CLASS(zjoystick, php_sdl_joystick_ce)
+    Z_PARAM_LONG(axis)
+    ZEND_PARSE_PARAMETERS_END();
+
+    joystick = sdl_joystick_from_zval(zjoystick);
+
+    RETURN_LONG(SDL_JoystickGetAxis(joystick, axis));
 }
 
 PHP_FUNCTION(SDL_JoystickNumButtons)

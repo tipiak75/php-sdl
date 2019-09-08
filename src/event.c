@@ -101,6 +101,17 @@ zend_bool sdl_event_to_zval(SDL_Event *event, zval *value)
 			add_property_zval(value, "jbutton", &joybutton);
 			zval_ptr_dtor(&joybutton);
 		} break;
+		case SDL_JOYAXISMOTION: {
+			zval jaxis;
+			object_init(&jaxis);
+			add_property_long(&jaxis, "type", event->jaxis.type);
+			add_property_long(&jaxis, "timestamp", event->jaxis.timestamp);
+			add_property_long(&jaxis, "which", event->jaxis.which);
+			add_property_long(&jaxis, "axis", event->jaxis.axis);
+			add_property_long(&jaxis, "value", event->jaxis.value);
+			add_property_zval(value, "jaxis", &jaxis);
+			zval_ptr_dtor(&jaxis);
+		} break;
 	}
 
 	return 1;
