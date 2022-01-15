@@ -77,6 +77,6 @@ $ [sudo] make install
 
 ## Support and feature requests
 
-Please submit anything that needs our attention to the [issues section](https://github.com/php-sdl/extension/issues) on Github. We are commited to attend any request in a short timespan if it's a sensible matter.
+Please submit anything that needs our attention to the [issues section](https://github.com/Ponup/php-sdl/issues) on Github. We are commited to attend any request in a short timespan if it's a sensible matter.
 
 
