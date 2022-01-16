@@ -43,6 +43,9 @@
 #include "video.h"
 #include "window.h"
 #include "joystick.h"
+#ifdef HAVE_SDL2_TTF
+#include "ttf.h"
+#endif
 
 #ifdef COMPILE_DL_SDL
 ZEND_GET_MODULE(sdl)
@@ -93,6 +96,9 @@ PHP_MINIT_FUNCTION(sdl)
 		&& SUCCESS == PHP_MINIT_CALL(sdl_shape)
 		&& SUCCESS == PHP_MINIT_CALL(sdl_surface)
 		&& SUCCESS == PHP_MINIT_CALL(sdl_timer)
+		#ifdef HAVE_SDL2_TTF
+		&& SUCCESS == PHP_MINIT_CALL(sdl_ttf)
+		#endif
 		&& SUCCESS == PHP_MINIT_CALL(sdl_version)
 		&& SUCCESS == PHP_MINIT_CALL(sdl_video)
 		&& SUCCESS == PHP_MINIT_CALL(sdl_window)
@@ -459,6 +465,11 @@ static zend_function_entry sdl_functions[] = {
 	ZEND_FE(SDL_WriteBE64,                    arginfo_SDL_write)
 #endif
 
+#ifdef HAVE_SDL2_TTF
+	// Ttf
+	ZEND_FE(TTF_Init,							arginfo_TTF_Init)
+	ZEND_FE(TTF_Quit,							arginfo_TTF_Quit)
+#endif
 
 	ZEND_FE_END
 };

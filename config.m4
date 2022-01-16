@@ -6,6 +6,9 @@ PHP_ARG_WITH(sdl, whether to enable SDL functions,
 PHP_ARG_ENABLE(sdl-debug, whether to enable PHP-SDL debug support,
 [  --enable-sdl-debug     Enable SDL debug support], no, no)
 
+PHP_ARG_WITH(sdl-ttf, whether to enable sdl_ttf functions,
+[  --with-sdl-ttf[=SDLTTF_PATH]      Enable SDL2_ttf library], no, no)
+
 if test "$PHP_SDL" != "no"; then
   export OLD_CPPFLAGS="$CPPFLAGS"
   export CPPFLAGS="$CPPFLAGS $INCLUDES -DHAVE_SDL2 -Wall -Wfatal-errors"
@@ -50,6 +53,36 @@ if test "$PHP_SDL" != "no"; then
     PHP_EVAL_LIBLINE(`$SDL2_CONFIG --libs`, SDL_SHARED_LIBADD)
   else
     AC_MSG_ERROR(Cannot find sdl2-config)
+  fi
+
+  if test "$PHP_SDL_TTF" != "no"; then
+    AC_MSG_CHECKING(for pkg-config)
+
+    if test ! -f "$PKG_CONFIG"; then
+      PKG_CONFIG=`which pkg-config`
+    fi
+
+    if test -f "$PKG_CONFIG"; then
+      AC_MSG_RESULT(found)
+      AC_MSG_CHECKING(for SDL2_ttf)
+
+      if $PKG_CONFIG --exists SDL2_ttf; then
+        SDL_TTF_VERSION=`$PKG_CONFIG --modversion SDL2_ttf`
+        AC_MSG_RESULT(using SDL2_ttf version $SDL_TTF_VERSION)
+        SDL_TTF_LIBS=`$PKG_CONFIG --libs SDL2_ttf`
+        LDFLAGS=$SDL_TTF_LIBS
+        PHP_EVAL_LIBLINE($SDL_TTF_LIBS, SDL_TTF_SHARED_LIBADD)
+        AC_DEFINE(HAVE_SDL2_TTF, 1, [whether SDL2_ttf exists in the system])
+    
+      else
+        AC_MSG_RESULT(not found)
+        AC_MSG_ERROR(Ooops ! Could not find SDL2_ttf, either proceed to install it or configure the extension without it.)
+      fi
+
+    else
+      AC_MSG_RESULT(not found)
+      AC_MSG_ERROR(Ooops ! no pkg-config found .... )
+    fi
   fi
 
   PHP_SUBST(SDL_SHARED_LIBADD)

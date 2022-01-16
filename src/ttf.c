@@ -18,74 +18,48 @@
 */
 
 
-#ifndef PHP_PHPSDL_H
-#define PHP_PHPSDL_H
-
-#ifdef  __cplusplus
-extern "C" {
-#endif
-
-#ifdef HAVE_CONFIG_H
-#include "config.h"
-#endif
-
-#include <php.h>
-#include <zend_exceptions.h>
-
-#define PHP_SDL_VERSION "2.5.0"
-
-#if defined(__APPLE__) && defined(__MACH__)
-#include <SDL2/SDL.h>
-#ifdef HAVE_SDL2_TTF
-#include <SDL2/SDL_ttf.h>
-#endif
-#else
-#include <SDL.h>
-#ifdef HAVE_SDL2_TTF
-#include <SDL_ttf.h>
-#endif
-#endif
-
-#include <php_ini.h>
-#include <SAPI.h>
-#include <ext/standard/info.h>
-#include <Zend/zend_extensions.h>
-#ifdef  __cplusplus
-} // extern "C" 
-#endif
-#ifdef  __cplusplus
-extern "C" {
-#endif
-
-extern zend_module_entry sdl_module_entry;
-#define phpext_sdl_ptr &sdl_module_entry
-
-#ifdef PHP_WIN32
-#define PHP_SDL_API __declspec(dllexport)
-#else
-#define PHP_SDL_API
-#endif
-
-PHP_MINIT_FUNCTION(sdl);
-PHP_MSHUTDOWN_FUNCTION(sdl);
-PHP_RINIT_FUNCTION(sdl);
-PHP_RSHUTDOWN_FUNCTION(sdl);
-PHP_MINFO_FUNCTION(sdl);
-
-zend_bool php_sdl_check_overflow(int a, int b, int silent);
-
-#ifdef  __cplusplus
-} // extern "C" 
-#endif
-
-#endif /* PHP_PHPSDL_H */
-
-
 /*
- * Local variables:
- * tab-width: 4
- * c-basic-offset: 4
- * End:
- * vim600: noet sw=4 ts=4 fdm=marker
- * vim<600: noet sw=4 ts=4
- */
+  +----------------------------------------------------------------------+
+  | wrapper for SDL2/SDL_ttf                                             |
+  +----------------------------------------------------------------------+
+*/
+#include "ttf.h"
+
+#ifdef HAVE_SDL2_TTF
+
+/* {{{ proto int TTF_Init(void)
+*/
+PHP_FUNCTION(TTF_Init) {
+	if (zend_parse_parameters_none() == FAILURE) {
+		RETURN_FALSE;
+	}
+
+	RETURN_LONG(TTF_Init());
+}
+/* }}} */
+
+
+/* {{{ proto void SDL_Quit(void)
+
+ *  This function cleans up all initialized subsystems. You should
+ *  call it upon all exit conditions.
+extern DECLSPEC void SDLCALL SDL_Quit(void);
+*/
+PHP_FUNCTION(TTF_Quit)
+{
+	if (zend_parse_parameters_none() == FAILURE) {
+		RETURN_FALSE;
+	}
+
+	TTF_Quit();
+}
+/* }}} */
+
+
+/* {{{ MINIT */
+PHP_MINIT_FUNCTION(sdl_ttf)
+{
+	return SUCCESS;
+}
+/* }}} */
+#endif

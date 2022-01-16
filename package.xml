@@ -85,6 +85,8 @@
         <file role="src" name="surface.h"/>
         <file role="src" name="timer.c"/>
         <file role="src" name="timer.h"/>
+        <file role="src" name="ttf.c"/>
+        <file role="src" name="ttf.h"/>
         <file role="src" name="version.c"/>
         <file role="src" name="version.h"/>
         <file role="src" name="video.c"/>
