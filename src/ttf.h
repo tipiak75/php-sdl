@@ -25,13 +25,9 @@
 extern "C" {
 #endif
 
-#if defined(__APPLE__) && defined(__MACH__)
-#include <SDL2/SDL_ttf.h>
-#else
-#include <SDL_ttf.h>
-#endif
-
+#include "SDL_ttf.h"
 #include "php_sdl.h"
+
 
 zend_class_entry *get_php_sdl_ttf_font_ce(void);
 zend_bool sdl_ttf_font_to_zval(TTF_Font *font, zval *value);
@@ -68,7 +64,7 @@ PHP_FUNCTION(TTF_Quit);
 PHP_MINIT_FUNCTION(sdl_ttf);
 
 #ifdef  __cplusplus
-} // extern "C" 
+} // extern "C"
 #endif
 
 #endif /* PHP_SDL_TTF_H */

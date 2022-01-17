@@ -73,7 +73,7 @@ if test "$PHP_SDL" != "no"; then
         LDFLAGS=$SDL_TTF_LIBS
         PHP_EVAL_LIBLINE($SDL_TTF_LIBS, SDL_TTF_SHARED_LIBADD)
         AC_DEFINE(HAVE_SDL2_TTF, 1, [whether SDL2_ttf exists in the system])
-    
+
       else
         AC_MSG_RESULT(not found)
         AC_MSG_ERROR(Ooops ! Could not find SDL2_ttf, either proceed to install it or configure the extension without it.)

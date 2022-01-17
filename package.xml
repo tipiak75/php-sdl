@@ -87,6 +87,8 @@
         <file role="src" name="timer.h"/>
         <file role="src" name="ttf.c"/>
         <file role="src" name="ttf.h"/>
+        <file role="src" name="SDL_ttf.c"/>
+        <file role="src" name="SDL_ttf.h"/>
         <file role="src" name="version.c"/>
         <file role="src" name="version.h"/>
         <file role="src" name="video.c"/>
@@ -209,7 +211,7 @@
       <license uri="http://www.php.net/license">PHP</license>
       <notes>
   	  - Fix undefined symbol (sdl_window_to_zval)
-  	  - Tidy up GL context creation 
+  	  - Tidy up GL context creation
       </notes>
     </release>
     <release>
