@@ -25,7 +25,17 @@
 extern "C" {
 #endif
 
+#if defined(__APPLE__) && defined(__MACH__)
+#include <SDL2/SDL_ttf.h>
+#else
+#include <SDL_ttf.h>
+#endif
+
 #include "php_sdl.h"
+
+zend_class_entry *get_php_sdl_ttf_font_ce(void);
+zend_bool sdl_ttf_font_to_zval(TTF_Font *font, zval *value);
+zend_bool zval_to_sdl_ttf_font(zval *value, TTF_Font *font);
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_TTF_Init, 0, 0, 0)
 ZEND_END_ARG_INFO()
